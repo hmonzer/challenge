@@ -10,18 +10,15 @@ import io.micronaut.retry.annotation.Retryable;
 import javax.inject.Inject;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.locks.StampedLock;
 
 
 public class AccountService implements IAccountService {
 
     private IAccountRepository accountRepository;
-    private StampedLock lock;
 
     @Inject
     public AccountService(IAccountRepository accountRepository) {
         this.accountRepository = accountRepository;
-        lock = new StampedLock();
     }
 
     @Retryable
