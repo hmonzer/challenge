@@ -47,7 +47,7 @@ public class AccountsLoader {
 
         MoneyTransferRequest transferRequest = MoneyTransferRequest.builder().amount(Amount.builder().amount(BigDecimal.ONE).build()).beneficiaryAccountId(beneficiaryAccountId).sourceAccountId(sourceAccountId).build();
         ExecutorService executor = Executors.newFixedThreadPool(100);
-        for (int i = 0; i <= 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             int iterationNumber = i;
             executor.submit(() -> testMoneyTransfer(transferRequest, iterationNumber));
         }

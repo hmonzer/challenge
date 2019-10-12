@@ -21,6 +21,8 @@ import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 @Slf4j
@@ -44,12 +46,16 @@ public class MoneyTransferController {
     @Post
     public HttpResponse createMoneyTransfer(@Body MoneyTransferApiRequest request) {
         try {
-            TransferRequestId transferRequestId = moneyTransferCreationService.requestMoneyTransfer(toMoneyTransferRequest(request));
+            TransferRequestId transferRequestId = requestMoneyTransfer(request);
             return HttpResponse.created(MoneyTransferApiResponse.builder().transferId(transferRequestId.getId()).build());
         } catch (InvalidAccountException | InvalidTransferAmountException e) {
             log.error("Failed to create Money Transfer {}", request, e);
             return HttpResponse.badRequest(new JsonError(e.getMessage()));
         }
+    }
+
+    private TransferRequestId requestMoneyTransfer(@Body MoneyTransferApiRequest request) throws InvalidAccountException, InvalidTransferAmountException {
+        return moneyTransferCreationService.requestMoneyTransfer(toMoneyTransferRequest(request));
     }
 
     private MoneyTransferRequest toMoneyTransferRequest(MoneyTransferApiRequest apiRequest) {
