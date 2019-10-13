@@ -13,9 +13,6 @@ import java.math.BigDecimal;
 public class Account {
     private AccountId accountId;
     @Builder.Default
-    private int version = 0;
-
-    @Builder.Default
     private Amount currentBalance = Amount.builder().amount(BigDecimal.ZERO).build();
 
     public void debit(Amount amountToDebit) throws InsufficientFundsException {
@@ -23,11 +20,9 @@ public class Account {
             throw new InsufficientFundsException(amountToDebit.getAmount());
         }
         currentBalance = currentBalance.subtract(amountToDebit);
-        version++;
     }
 
     public void credit(Amount amountToCredit) {
         currentBalance = currentBalance.add(amountToCredit);
-        version++;
     }
 }
