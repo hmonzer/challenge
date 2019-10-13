@@ -21,7 +21,7 @@ public class AccountService implements IAccountService {
         this.accountRepository = accountRepository;
     }
 
-    @Retryable
+    @Retryable(delay = "200ms")
     @Override
     public void creditAccount(AccountId accountId, Amount amount) throws InvalidAccountException {
         Optional<Account> account = this.accountRepository.findById(accountId);

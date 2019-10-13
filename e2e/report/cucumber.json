@@ -11,7 +11,7 @@
         "steps": [
           {
             "result": {
-              "duration": 946907823,
+              "duration": 1172577035,
               "status": "passed"
             },
             "line": 4,
@@ -33,7 +33,7 @@
           },
           {
             "result": {
-              "duration": 32273281,
+              "duration": 27995566,
               "status": "passed"
             },
             "line": 5,
@@ -56,7 +56,7 @@
         ]
       },
       {
-        "start_timestamp": "2019-10-13T07:05:26.923Z",
+        "start_timestamp": "2019-10-13T16:50:56.890Z",
         "line": 7,
         "name": "",
         "description": "",
@@ -66,7 +66,7 @@
         "steps": [
           {
             "result": {
-              "duration": 574409246,
+              "duration": 866187879,
               "status": "passed"
             },
             "line": 8,
@@ -96,24 +96,24 @@
           },
           {
             "result": {
-              "duration": 4077658224,
+              "duration": 11105336951,
               "status": "passed"
             },
             "line": 10,
-            "name": "after 3 second(s), firstAccount should have a balance of 0",
+            "name": "after 10 second(s), firstAccount should have a balance of 0",
             "match": {
               "arguments": [
                 {
-                  "val": "3",
+                  "val": "10",
                   "offset": 6
                 },
                 {
                   "val": "firstAccount",
-                  "offset": 19
+                  "offset": 20
                 },
                 {
                   "val": "0",
-                  "offset": 57
+                  "offset": 58
                 }
               ],
               "location": "StepsDefinition.after_delay_account_should_have_a_balance_of(int,String,Double)"
@@ -122,24 +122,24 @@
           },
           {
             "result": {
-              "duration": 3040701106,
+              "duration": 10040663575,
               "status": "passed"
             },
             "line": 11,
-            "name": "after 3 second(s), secondAccount should have a balance of 2500",
+            "name": "after 10 second(s), secondAccount should have a balance of 2500",
             "match": {
               "arguments": [
                 {
-                  "val": "3",
+                  "val": "10",
                   "offset": 6
                 },
                 {
                   "val": "secondAccount",
-                  "offset": 19
+                  "offset": 20
                 },
                 {
                   "val": "2500",
-                  "offset": 58
+                  "offset": 59
                 }
               ],
               "location": "StepsDefinition.after_delay_account_should_have_a_balance_of(int,String,Double)"
@@ -168,7 +168,7 @@
         "steps": [
           {
             "result": {
-              "duration": 27768406,
+              "duration": 24541157,
               "status": "passed"
             },
             "line": 4,
@@ -190,7 +190,7 @@
           },
           {
             "result": {
-              "duration": 21953511,
+              "duration": 19942258,
               "status": "passed"
             },
             "line": 5,
@@ -213,7 +213,7 @@
         ]
       },
       {
-        "start_timestamp": "2019-10-13T07:05:35.599Z",
+        "start_timestamp": "2019-10-13T16:51:20.108Z",
         "line": 7,
         "name": "",
         "description": "",
@@ -223,7 +223,7 @@
         "steps": [
           {
             "result": {
-              "duration": 20203393,
+              "duration": 19306605,
               "status": "passed"
             },
             "line": 8,
@@ -249,7 +249,7 @@
           },
           {
             "result": {
-              "duration": 17612191,
+              "duration": 18782361,
               "status": "passed"
             },
             "line": 10,
@@ -271,7 +271,7 @@
           },
           {
             "result": {
-              "duration": 22966841,
+              "duration": 18683596,
               "status": "passed"
             },
             "line": 11,
@@ -293,7 +293,7 @@
           },
           {
             "result": {
-              "duration": 15862074,
+              "duration": 19195989,
               "status": "passed"
             },
             "line": 12,
@@ -320,7 +320,7 @@
         "steps": [
           {
             "result": {
-              "duration": 20166653,
+              "duration": 16514713,
               "status": "passed"
             },
             "line": 4,
@@ -342,7 +342,7 @@
           },
           {
             "result": {
-              "duration": 18842015,
+              "duration": 18505423,
               "status": "passed"
             },
             "line": 5,
@@ -365,7 +365,7 @@
         ]
       },
       {
-        "start_timestamp": "2019-10-13T07:05:35.727Z",
+        "start_timestamp": "2019-10-13T16:51:20.230Z",
         "line": 14,
         "name": "",
         "description": "",
@@ -375,7 +375,7 @@
         "steps": [
           {
             "result": {
-              "duration": 16691700,
+              "duration": 20717366,
               "status": "passed"
             },
             "line": 15,
@@ -401,7 +401,7 @@
           },
           {
             "result": {
-              "duration": 16554219,
+              "duration": 18013573,
               "status": "passed"
             },
             "line": 17,
@@ -423,7 +423,7 @@
           },
           {
             "result": {
-              "duration": 15930814,
+              "duration": 16693280,
               "status": "passed"
             },
             "line": 18,
@@ -445,7 +445,7 @@
           },
           {
             "result": {
-              "duration": 19879838,
+              "duration": 20580281,
               "status": "passed"
             },
             "line": 19,
