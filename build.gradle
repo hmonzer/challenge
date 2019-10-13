@@ -20,6 +20,8 @@ configurations {
 }
 
 dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
     annotationProcessor "io.micronaut:micronaut-inject-java"
