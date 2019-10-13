@@ -7,5 +7,5 @@ Feature: Transfer Money Concurrently between bank accounts
   Scenario:
     When In parallel, 1000 transfers are launched from firstAccount to secondAccount for 1
 
-    Then after 3 second(s), firstAccount should have a balance of 0
-    And after 3 second(s), secondAccount should have a balance of 2500
+    Then after 10 second(s), firstAccount should have a balance of 0
+    And after 10 second(s), secondAccount should have a balance of 2500
