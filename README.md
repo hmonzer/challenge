@@ -49,3 +49,8 @@ gradlew run
 ``` 
 
 ### Running End to End tests
+End 2 End tests are written in cucumber. you can run them by executing:
+```$xslt
+gradlew :e2e:cucumber
+```
+The results will be logged to the console
