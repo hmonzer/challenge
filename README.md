@@ -37,9 +37,10 @@ I used the below dependencies when developing the project:
 1. micronaut: to expose the controller and dependency injection
  ***This can be easily replaced with Google guice and any other framework to expose REST api***
  
- 1. Lombok to avoid boilerplate code
- 1. junit for unit tests (already imported by micronaut)
- 1. mockito for unit test mocking
+ 1. Lombok: to avoid boilerplate code
+ 1. guava: primarily used for the AccountLockingService
+ 1. junit: for unit tests (already imported by micronaut)
+ 1. mockito: for unit test mocking
   
   ---
  ## How To Run
@@ -47,10 +48,17 @@ I used the below dependencies when developing the project:
  ```$xslt
 gradlew run
 ``` 
-
+### REST API
+Once launched, the server running on localhost:8080 exposes 2 controllers to manage accounts and transfers
+[swagger yaml definition](http://localhost:8080/swagger/money-transfer-1.0.yml)
 ### Running End to End tests
 End 2 End tests are written in cucumber. you can run them by executing:
 ```$xslt
-gradlew :e2e:cucumber
+gradlew :e2e:clean :e2e:cucumber
 ```
 The results will be logged to the console
+#### Scenarios
+2 scenarios are written to test a money transfer between 2 accounts; one of them is successful while the other results in INSUFFICIENT_FUNDS error.
+One Additional scenario is added  to test concurrency behavior.
+
+---
