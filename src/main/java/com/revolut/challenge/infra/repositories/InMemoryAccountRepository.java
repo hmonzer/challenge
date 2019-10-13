@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Singleton;
 import java.util.Collections;
-import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -30,13 +29,7 @@ public class InMemoryAccountRepository implements IAccountRepository {
     public void save(Account account) {
         long writeLockStamp = lock.writeLock();
         try {
-            Account currentAccount = accounts.get(account.getAccountId());
-            if (currentAccount == null || isVersionValid(account, currentAccount)) {
-                accounts.put(account.getAccountId(), account.toBuilder().build());
-            } else {
-                log.error("Current Version {} - To Be Saved {}", currentAccount.getVersion(), account.getVersion());
-                throw new ConcurrentModificationException();
-            }
+            accounts.put(account.getAccountId(), account.toBuilder().build());
         } finally {
             lock.unlock(writeLockStamp);
         }
@@ -51,9 +44,5 @@ public class InMemoryAccountRepository implements IAccountRepository {
         } finally {
             lock.unlock(readLockStamp);
         }
-    }
-
-    private boolean isVersionValid(Account account, Account currentAccount) {
-        return currentAccount.getVersion() == account.getVersion() - 1;
     }
 }

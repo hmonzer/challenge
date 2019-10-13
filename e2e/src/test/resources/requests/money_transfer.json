@@ -1,0 +1,5 @@
+{
+  "sourceAccountId":"${sourceAccountId}",
+  "beneficiaryAccountId": "${beneficiaryAccountId}",
+  "transferAmount": ${amount}
+}
