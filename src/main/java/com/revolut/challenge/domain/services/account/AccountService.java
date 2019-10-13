@@ -5,7 +5,6 @@ import com.revolut.challenge.domain.model.account.AccountId;
 import com.revolut.challenge.domain.model.account.Amount;
 import com.revolut.challenge.domain.model.account.InsufficientFundsException;
 import com.revolut.challenge.domain.repositories.IAccountRepository;
-import io.micronaut.retry.annotation.Retryable;
 
 import javax.inject.Inject;
 import java.util.Optional;
@@ -15,28 +14,38 @@ import java.util.UUID;
 public class AccountService implements IAccountService {
 
     private IAccountRepository accountRepository;
+    private IAccountLockingService accountLockingService;
 
     @Inject
-    public AccountService(IAccountRepository accountRepository) {
+    public AccountService(IAccountRepository accountRepository, IAccountLockingService accountLockingService) {
         this.accountRepository = accountRepository;
+        this.accountLockingService = accountLockingService;
     }
 
-    @Retryable(delay = "200ms")
     @Override
     public void creditAccount(AccountId accountId, Amount amount) throws InvalidAccountException {
-        Optional<Account> account = this.accountRepository.findById(accountId);
-        Account accountToCredit = account.orElseThrow(() -> new InvalidAccountException(accountId));
-        accountToCredit.credit(amount);
-        accountRepository.save(accountToCredit);
+        try {
+            accountLockingService.lockAccount(accountId);
+            Optional<Account> account = this.accountRepository.findById(accountId);
+            Account accountToCredit = account.orElseThrow(() -> new InvalidAccountException(accountId));
+            accountToCredit.credit(amount);
+            accountRepository.save(accountToCredit);
+        } finally {
+            accountLockingService.unlockAccount(accountId);
+        }
     }
 
-    @Retryable
     @Override
     public void debitAccount(AccountId accountId, Amount amount) throws InvalidAccountException, InsufficientFundsException {
-        Optional<Account> account = this.accountRepository.findById(accountId);
-        Account accountToDebit = account.orElseThrow(() -> new InvalidAccountException(accountId));
-        accountToDebit.debit(amount);
-        accountRepository.save(accountToDebit);
+        try {
+            accountLockingService.lockAccount(accountId);
+            Optional<Account> account = this.accountRepository.findById(accountId);
+            Account accountToDebit = account.orElseThrow(() -> new InvalidAccountException(accountId));
+            accountToDebit.debit(amount);
+            accountRepository.save(accountToDebit);
+        } finally {
+            accountLockingService.unlockAccount(accountId);
+        }
     }
 
     @Override

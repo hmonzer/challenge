@@ -13,7 +13,11 @@ import java.math.BigDecimal;
 public class Account {
     private AccountId accountId;
     @Builder.Default
+    @EqualsAndHashCode.Exclude
     private int version = 0;
+
+    @EqualsAndHashCode.Exclude
+    private boolean modified;
 
     @Builder.Default
     private Amount currentBalance = Amount.builder().amount(BigDecimal.ZERO).build();
@@ -23,11 +27,11 @@ public class Account {
             throw new InsufficientFundsException(amountToDebit.getAmount());
         }
         currentBalance = currentBalance.subtract(amountToDebit);
-        version++;
+        modified = true;
     }
 
     public void credit(Amount amountToCredit) {
         currentBalance = currentBalance.add(amountToCredit);
-        version++;
+        modified = true;
     }
 }
