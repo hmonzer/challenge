@@ -32,7 +32,6 @@ task cucumber(type: Test) {
     dependsOn assemble, compileTestJava
     doLast {
         javaexec {
-            systemProperty 'env', System.getProperty('env')
             main = "cucumber.api.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = ['--plugin', "json:report/cucumber.json", '--glue', 'com.revolut.challenge.e2e', 'src/test/resources']

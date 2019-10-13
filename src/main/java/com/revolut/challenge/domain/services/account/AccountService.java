@@ -24,29 +24,19 @@ public class AccountService implements IAccountService {
     @Retryable
     @Override
     public void creditAccount(AccountId accountId, Amount amount) throws InvalidAccountException {
-        long lockStamp = lock.writeLock();
-        try {
-            Optional<Account> account = this.accountRepository.findById(accountId);
-            Account accountToCredit = account.orElseThrow(() -> new InvalidAccountException(accountId));
-            accountToCredit.credit(amount);
-            accountRepository.save(accountToCredit);
-        } finally {
-            lock.unlock(lockStamp);
-        }
+        Optional<Account> account = this.accountRepository.findById(accountId);
+        Account accountToCredit = account.orElseThrow(() -> new InvalidAccountException(accountId));
+        accountToCredit.credit(amount);
+        accountRepository.save(accountToCredit);
     }
 
     @Retryable
     @Override
     public void debitAccount(AccountId accountId, Amount amount) throws InvalidAccountException, InsufficientFundsException {
-        long lockStamp = lock.writeLock();
-        try {
-            Optional<Account> account = this.accountRepository.findById(accountId);
-            Account accountToDebit = account.orElseThrow(() -> new InvalidAccountException(accountId));
-            accountToDebit.debit(amount);
-            accountRepository.save(accountToDebit);
-        } finally {
-            lock.unlock(lockStamp);
-        }
+        Optional<Account> account = this.accountRepository.findById(accountId);
+        Account accountToDebit = account.orElseThrow(() -> new InvalidAccountException(accountId));
+        accountToDebit.debit(amount);
+        accountRepository.save(accountToDebit);
     }
 
     @Override
