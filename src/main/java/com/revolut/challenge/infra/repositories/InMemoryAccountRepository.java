@@ -31,15 +31,25 @@ public class InMemoryAccountRepository implements IAccountRepository {
         long writeLockStamp = lock.writeLock();
         try {
             Account currentAccount = accounts.get(account.getAccountId());
-            if (currentAccount == null || isVersionValid(account, currentAccount)) {
-                accounts.put(account.getAccountId(), account.toBuilder().build());
-            } else {
-                log.error("Current Version {} - To Be Saved {}", currentAccount.getVersion(), account.getVersion());
-                throw new ConcurrentModificationException();
+            if (currentAccount == null) {
+                accounts.put(account.getAccountId(), account.toBuilder().version(1).build());
+            } else if (account.isModified()) {
+                verifyConcurrencyAndSave(account, currentAccount);
             }
         } finally {
             lock.unlock(writeLockStamp);
         }
+    }
+
+    private void verifyConcurrencyAndSave(Account account, Account currentAccount) {
+        if (wasConcurrentlyModified(account, currentAccount)) {
+            throw new ConcurrentModificationException();
+        }
+        accounts.put(account.getAccountId(), account.toBuilder().version(currentAccount.getVersion() + 1).modified(false).build());
+    }
+
+    private boolean wasConcurrentlyModified(Account account, Account currentAccount) {
+        return currentAccount.getVersion() != account.getVersion();
     }
 
     @Override
@@ -51,9 +61,5 @@ public class InMemoryAccountRepository implements IAccountRepository {
         } finally {
             lock.unlock(readLockStamp);
         }
-    }
-
-    private boolean isVersionValid(Account account, Account currentAccount) {
-        return currentAccount.getVersion() == account.getVersion() - 1;
     }
 }

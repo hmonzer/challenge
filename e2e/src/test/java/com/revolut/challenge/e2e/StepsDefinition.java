@@ -55,12 +55,6 @@ public class StepsDefinition {
         get("/accounts/" + accountMap.get(accountReference)).then().body("currentBalance", equalTo(amount.floatValue()));
     }
 
-    @Then("after {int} second\\(s), {} should have a balance of {}")
-    public void after_delay_account_should_have_a_balance_of(int delay, String accountReference, Double amount) throws InterruptedException {
-        Thread.sleep(delay * 1000);
-        get("/accounts/" + accountMap.get(accountReference)).then().body("currentBalance", equalTo(amount.floatValue()));
-    }
-
     @And("transfer request should have status (.+)")
     public void transfer_request_should_have_status(String status) {
         get("/transfers/" + transferId).then().body("status", equalTo(status));
